@@ -66,6 +66,7 @@ export default function BeneficiariesList(props) {
   const [searchStr, setSearchString] = useState(str);
   const [searchData, setSearchData] = useState(data);
   const [beneData, setBeneData] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [orgbeneData, setOrgBeneData] = useState([]);
   const [ck, setCk] = useState(false);
   const [thead, setThead] = useState(orgthead);
@@ -121,6 +122,7 @@ export default function BeneficiariesList(props) {
       res = [];
     }
     setBeneData(res);
+    setDataLoaded(true);
     setOrgBeneData(res);
   }
 
@@ -222,7 +224,7 @@ export default function BeneficiariesList(props) {
               )}
             </div>
           )}
-          {beneData.length == 0 && (
+          {dataLoaded && beneData.length == 0 && (
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <div
