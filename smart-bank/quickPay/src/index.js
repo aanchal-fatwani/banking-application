@@ -4,30 +4,22 @@ function addHtml(accountNumber) {
   let htmlBlock = `
   <div class="qp_top">
   <form id="qp_form">
-   <div class="qp_row">
-      <h4 style="color:#08466d;text-align:center;padding-right: 77px;padding-bottom:20px">TRANSFER MONEY TO YOUR BENEFICIARIES</h4>
-      <div style="width: 132px;float: left;padding-left: 150px;padding-right:0px;">
+  <div style="display:flex; flex-direction:column">
+      <h4 style="color:#08466d;text-align:center;margin: 15px;">TRANSFER MONEY TO YOUR BENEFICIARIES</h4>
+      <div style="display:flex; flex-direction:row;justify-content:space-evenly">
          <input class="inp" type="text" placeholder="Amount" id="amt" style="
-         width: 184px;
-         margin-left: -90px;
-         font-size:20px;"
+         width: 200px;font-size:20px;margin: 15px;"
        />
+       <div style="margin: 25px 0 0 0;">TO</div>
+       <select id="beneficiaries" style="width:300px;margin: 10px;">
+       </select>
+       </div>
+       <div style="margin: 30px 0;font-size: 20px;">
+       <input class="inp" id="terms" type="checkbox"/>
+       <label for="terms">I agree that I have confirmed the details of the payee and want to proceed to pay.</label>
+       </div>
+       <input class="inp" type="button" value="PAY" id="pay" style="font-size:20px; font-weight:700;"/>
       </div>
-      <div style="padding-top: 10px;float: left;padding-left: 265px;padding-right: 30px;">TO</div>
-      <div style="width: 330px; float: right;padding-right:0px">
-         <div class="qp_input-group">
-            <select id="beneficiaries">
-            </select>
-         </div>
-      </div>
-   </div>
-   <div class="qp_row">
-      <div class="qp_input-group">
-         <input class="inp" id="terms" type="checkbox"/>
-         <label for="terms">I agree that I have confirmed the details of the payee and want to proceed to pay.</label>
-      </div>
-      <input class="inp" type="button" value="PAY" id="pay" style="font-size:20px; font-weight:700;"/>
-   </div>
 </form>
 </div>
   `;
@@ -56,16 +48,6 @@ function addStyles() {
     }
     select,select option {
       font-size:20px
-    }
-    .qp_input-group {
-      margin-bottom:1em
-    }
-    .qp_row:after {
-      clear:both
-    }
-    .qp_row:after,.qp_row:before {
-      content:"";
-      display:table
     }
     .qp_top {
       background-color:#fff;
