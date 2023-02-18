@@ -10,3 +10,12 @@ export async function getBeneficiaries() {
     console.error(error);
   }
 }
+
+export async function addBeneficiary(data) {
+  try {
+    const response = await axios.post(`${hostUrl}/`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

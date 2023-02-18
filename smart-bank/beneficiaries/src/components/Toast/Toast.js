@@ -12,7 +12,7 @@ export default function toast({ openStatus, closeHandler, msg, severity, duratio
       autoHideDuration={parseInt(duration)}
       onClose={() => closeHandler(false)}
     >
-      <Alert onClose={() => closeHandler(false)} severity={severity}>
+      <Alert onClose={() => closeHandler(false)} severity={severity} style={{fontSize:"20px"}}>
         {msg}
       </Alert>
     </Snackbar>

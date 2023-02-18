@@ -22,6 +22,7 @@ import {
 } from "@material-ui/core";
 
 import { getBeneficiaries } from "api/beneficiaries";
+import AddBeneficiary from "./AddBeneficiary";
 
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -61,13 +62,19 @@ const orgthead = [
 
 export default function BeneficiariesList(props) {
   const classes = useStyles();
-  const { str = "", data = [] } = props;
+  const { str = "", data = [], userDetails } = props;
 
   const [searchStr, setSearchString] = useState(str);
   const [searchData, setSearchData] = useState(data);
   const [beneData, setBeneData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [orgbeneData, setOrgBeneData] = useState([]);
+  const [userAccountNum, setUserAccountNum] = useState(
+    (userDetails &&
+      userDetails.hasOwnProperty("accountNumber") &&
+      userDetails.accountNumber) ||
+      (localStorage && localStorage.getItem("currentAccNum"))
+  );
   const [ck, setCk] = useState(false);
   const [thead, setThead] = useState(orgthead);
   const [fields, setFields] = useState({
@@ -230,11 +237,15 @@ export default function BeneficiariesList(props) {
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "center",
-                    marginTop: "300px",
+                    flexDirection:"column",
+                    fontSize:"30px",
+                    fontWeight:"700",
+                    textAlign:"center"
                   }}
                 >
-                  <h1>Currently you don't have any Beneficiaries Added</h1>
+                  <div style={{
+                    margin:"80px",
+                  }}>Currently you don't have any Beneficiaries Added</div>
                 </div>
               </GridItem>
             </GridContainer>
@@ -275,6 +286,21 @@ export default function BeneficiariesList(props) {
               </GridContainer>
             )
           )}
+           <GridContainer>
+              <GridItem xs={12} sm={12} md={11}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection:"column",
+                    textAlign:"center",
+                    marginLeft: "7%"
+                  }}
+                >
+                  <AddBeneficiary userAccountNum={userAccountNum} />
+                </div>
+              </GridItem>
+            </GridContainer>
         </Box>
       </Card>
     </StylesProvider>
