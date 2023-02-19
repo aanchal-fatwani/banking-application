@@ -44,7 +44,7 @@ const ContactUs = () => {
 
   return (
     <div className="container">
-      <div className="card">
+      <div className="contact-us-card">
         <h1>Send us a Message or Share your Query!</h1>
         <form className="form">
           <div className="text-input">
