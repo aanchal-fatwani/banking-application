@@ -97,8 +97,9 @@ const useStyles = makeStyles((theme) => ({
   card3: {
     marginLeft: "70px",
   },
-  paddingBottom: {
+  cardContent: {
     paddingBottom: "10px",
+    backgroundColor:"#e3e3e3"
   },
   fontSize: {
     fontSize: theme.spacing(1),
@@ -250,7 +251,7 @@ export default function TransactionsList(props) {
   return (
     <StylesProvider generateClassName={generateClassName}>
       <Card className={classes.card}>
-        <CardContent className={classes.paddingBottom}>
+        <CardContent className={classes.cardContent}>
           <Box>
             <div
               style={{
