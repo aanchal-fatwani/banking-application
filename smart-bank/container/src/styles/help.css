@@ -11,7 +11,7 @@
 }
 
 .faq-container {
-  max-width: 600px;
+  max-width: 630px;
   margin: 0 auto;
   border-radius: 10px;
   background-color: #fff;
@@ -22,7 +22,7 @@
 .faq {
   box-sizing: border-box;
   background: transparent;
-  padding: 30px;
+  padding: 25px;
   position: relative;
   overflow: hidden;
 }
@@ -33,6 +33,7 @@
 
 .faq-title {
   margin: 0 35px 0 0;
+  padding-right: 15px;
 }
 
 .faq-text {
@@ -97,4 +98,8 @@
   margin-top: 10px;
   font-size: 30px;
   font-weight: 700;
+}
+
+.support {
+  margin-bottom: 50px;
 }

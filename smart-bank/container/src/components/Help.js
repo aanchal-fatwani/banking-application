@@ -13,7 +13,7 @@ const Help = () => {
     },
     {
       ques: "I am unable to login into Internet Banking? What do I do?",
-      ans: "Registration not done for first time user: You have to register for Internet Banking in order to login. Reach out to our Support or visit your nearest branch. Keep your customer ID, KYC details, debit card handy. Also ensure that your registered mobile number and your registered email address are active.",
+      ans: "You have to apply and register for Internet Banking in order to login. Reach out to our Support or visit your nearest branch. Keep your customer ID, KYC details, debit card handy. Also ensure that your registered mobile number and your registered email address are active.",
     },
   ];
 
@@ -44,29 +44,21 @@ const Help = () => {
   }, []);
 
   return (
-    <>
+    <div style={{
+      // height: "calc(100vh - 140px)"
+      backgroundColor:"rgb(227, 227, 227)"
+    }}>
       <h1 className="faq-head">Frequently Asked Questions</h1>
       <div className="faq-container">
         {faqsList()}
-        <div className="faq">
-          <h3 className="faq-title">Lorem ipsum dolor sit amet.</h3>
-          <p className="faq-text">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod
-            nobis, repellat neque non dicta fugiat veritatis sit delectus
-            perspiciatis quis?
-          </p>
-          <button className="faq-toggle">
-            <i className="fas fa-angle-down"></i>
-          </button>
-        </div>
       </div>
       <div className="further-ques">
         <div>More Questions?</div>
-        <div>
+        <div className="support">
           Reach out to us at <a href="/contact-us">Support</a>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Help;
