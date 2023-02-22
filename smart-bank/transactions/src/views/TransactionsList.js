@@ -152,7 +152,7 @@ export default function TransactionsList(props) {
           typeof module.initializeAll == "function"
         ) {
           console.log("Initialised");
-          module.initializeAll(userDetails);
+          module.initializeAll(userDetails, updateHandlerCallback);
         }
       });
     }
@@ -172,6 +172,12 @@ export default function TransactionsList(props) {
     let user = await getUser();
     setTotalBal(user.balance);
   }
+  
+  const updateHandlerCallback = () => {
+    setBalance();
+    getAllTransactions();
+  }
+
   useEffect(() => {
     setThead(
       orgthead.filter((el) => {
