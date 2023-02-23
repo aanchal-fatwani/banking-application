@@ -223,14 +223,14 @@ export default function TransactionsList(props) {
           currentAccNum == receiverAccount ? "Received from" : "Sent to";
         let act =
           currentAccNum == receiverAccount ? senderAccount : receiverAccount;
-        description = `${txt} ${act} /${description}`;
+        description = `${txt} ${act} / ${description}`;
 
         let plusMinus = currentAccNum == receiverAccount ? "+" : "-";
         amount = `${plusMinus}${amount}`;
 
         date = new Date(date);
-        date = date.toDateString().split(" ");
-        date = `${date[3]} ${date[1]} ${date[2]} `;
+        // date = date.toDateString().split(" ");
+        // date = `${date[3]} ${date[1]} ${date[2]} `;
         return {
           date,
           description,
