@@ -253,7 +253,7 @@ export default function TransactionsList(props) {
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
           <Box>
-            <div
+            {txnData.length > 0 && <div
               style={{
                 marginLeft: "6px",
                 backgroundColor: "white",
@@ -341,7 +341,26 @@ export default function TransactionsList(props) {
                   />
                 </>
               )}
-            </div>
+            </div>}
+            {txnData.length == 0 && (
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection:"column",
+                    fontSize:"30px",
+                    fontWeight:"700",
+                    textAlign:"center"
+                  }}
+                >
+                  <div style={{
+                    margin:"80px",
+                  }}>Currently you haven't made any Transactions</div>
+                </div>
+              </GridItem>
+            </GridContainer>
+          )}
             {!searchStr && txnData.length > 0 ? (
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
