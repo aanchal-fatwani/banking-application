@@ -65,7 +65,7 @@ export default function AdminDashboard({ userDetails }) {
   async function getUserDetails() {
     let res = await getUserByAccount(userAccountNumber);
     console.log(res);
-    const { accountNumber, balance } = res.data[0];
+    const { accountNumber, balance } = res;
     setUserBalance(balance);
   }
 
@@ -92,7 +92,7 @@ export default function AdminDashboard({ userDetails }) {
       setLastPaidTxnAmt(usersLastPaidTxn.amount);
       let user = await getUserByAccount(usersLastPaidTxn.receiverAccount);
       console.log(user);
-      user = user.data[0];
+      // user = user;
       setLastPaidTxnName(user.name);
     }
   }
