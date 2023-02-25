@@ -24,7 +24,7 @@ const App = () => {
       <div style={{ width: "99%", height: "calc(100vh - 60px)" }}>
         <Suspense
           fallback={
-            <div style={{ top: "50%", position: "absolute", left: "50%" }}>
+            <div style={{ top: "50%", position: "absolute", left: "48%" }}>
               Loading...
             </div>
           }
