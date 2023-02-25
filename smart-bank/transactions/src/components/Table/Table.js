@@ -151,7 +151,7 @@ export default function CustomTable(props) {
     plusFn,
   } = props;
   const [orderBy, setOrderBy] = React.useState(primarySort);
-  const [order, setOrder] = React.useState("asc");
+  const [order, setOrder] = React.useState("desc");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [selected, setSelected] = React.useState([]);
@@ -299,10 +299,16 @@ export default function CustomTable(props) {
                     </TableCell>
                   ) : null}
                   {Object.keys(el).map((ele, key) => {
+                    let value = el[ele];
+                    if(ele == 'date'){
+                      value = value.toDateString().split(" ");
+                      value = `${value[3]} ${value[1]} ${value[2]} `;
+                      value = `${value}`
+                    }
                     if (Object.keys(el).length === key - 1) return null;
                     return (
                       <TableCell className={classes.tableCell} key={key}>
-                        {el[ele]}
+                        {value}
                       </TableCell>
                     );
                   })}

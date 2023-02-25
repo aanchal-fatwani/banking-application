@@ -35,7 +35,7 @@ export default function AdminDashboard({ userDetails }) {
     (userDetails &&
       userDetails.hasOwnProperty("accountNumber") &&
       userDetails.accountNumber) ||
-      (localStorage && localStorage.getItem("currentAccNum"))
+    (localStorage && localStorage.getItem("currentAccNum"))
   );
 
   const [lastTxnAmt, setLastTxnAmt] = useState(0);
@@ -51,9 +51,15 @@ export default function AdminDashboard({ userDetails }) {
     getTxnDetails();
     getBeneficiaryDetails();
   }, []);
+  
+  const updateHandlerCallback = () => {
+    getUserDetails();
+    getTxnDetails();
+    getBeneficiaryDetails();
+  }
 
   useEffect(() => {
-    if (beneficiaries.length) initializeAll(userDetails);
+    if (beneficiaries.length) initializeAll(userDetails, updateHandlerCallback);
   }, [beneficiaries]);
 
   async function getBeneficiaryDetails() {
@@ -82,7 +88,7 @@ export default function AdminDashboard({ userDetails }) {
     let usersLastTxn = res[res.length - 1];
     setLastTxnAmt(usersLastTxn.amount);
     let d = new Date(usersLastTxn.date);
-    setLastTxnDate(d.toDateString());
+    setLastTxnDate(d.toDateString().split(' ').slice(1).join(' '));
 
     res = res.filter((el) => {
       return el.senderAccount === userAccountNumber;
@@ -105,6 +111,8 @@ export default function AdminDashboard({ userDetails }) {
           display: "flex",
           justifyContent: "space-around",
           backgroundColor: "#e3e3e3",
+          // width: "99%",
+          // height: "calc(100vh - 60px)"
         }}
       >
         {userBalance ? (

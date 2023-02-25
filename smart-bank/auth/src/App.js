@@ -30,7 +30,7 @@ const App = ({ navigate, location, setUserDetails }) => {
       style={{
         width: "100%",
         height: "100%",
-        padding: "80px",
+        // padding: "80px",
         fontSize: "40px",
         display: "flex",
         alignItems: "center",

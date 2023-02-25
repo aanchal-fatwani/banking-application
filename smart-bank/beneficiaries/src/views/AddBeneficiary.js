@@ -33,6 +33,7 @@ export default function AddBeneficiary(props) {
     defaultBeneName = "",
     defaultBeneAcc = "",
     userAccountNum,
+    updateHandlerCallback
   } = props;
 
   const [ifsc, setIfsc] = useState(defaultIfsc);
@@ -61,6 +62,7 @@ export default function AddBeneficiary(props) {
     const res = await addBeneficiary(data);
     if (res && res.status === "success") {
       setErrorOcc(false);
+      updateHandlerCallback();
     } else {
       setErrorOcc(true);
     }

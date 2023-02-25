@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: "none",
     margin: "0",
     backgroundColor: "rgb(227, 227, 227)",
-    height: "calc(100vh - 60px)",
+    // height: "calc(100vh - 60px)",
     fontSize: "18px",
     padding: "25px",
   },
@@ -103,6 +103,10 @@ export default function BeneficiariesList(props) {
   useEffect(() => {
     getAllBeneficiaries();
   }, []);
+  
+  const updateHandlerCallback = () => {
+    getAllBeneficiaries();
+  }
 
   useEffect(() => {
     setSearchData(
@@ -297,7 +301,7 @@ export default function BeneficiariesList(props) {
                     marginLeft: "7%"
                   }}
                 >
-                  <AddBeneficiary userAccountNum={userAccountNum} />
+                  <AddBeneficiary userAccountNum={userAccountNum} updateHandlerCallback={updateHandlerCallback} />
                 </div>
               </GridItem>
             </GridContainer>

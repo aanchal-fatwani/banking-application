@@ -1,6 +1,6 @@
 import { getBeneficiaries, postTransaction } from "./api";
 
-function addHtml(accountNumber) {
+function addHtml(accountNumber, updateHandlerCallback) {
   let htmlBlock = `
   <div class="qp_top">
   <form id="qp_form">
@@ -16,9 +16,9 @@ function addHtml(accountNumber) {
        </div>
        <div style="margin: 30px 0;font-size: 20px;">
        <input class="inp" id="terms" type="checkbox"/>
-       <label for="terms">I agree that I have confirmed the details of the payee and want to proceed to pay.</label>
+       <label for="terms">I have confirmed the details of the payee and want to proceed with payment</label>
        </div>
-       <input class="inp" type="button" value="PAY" id="pay" style="font-size:20px; font-weight:700;"/>
+       <input class="inp" type="button" value="PAY" id="pay" style="font-size:20px; font-weight:700;" disabled="true" />
       </div>
 </form>
 </div>
@@ -36,7 +36,17 @@ function addHtml(accountNumber) {
         alert("Confirm your choice!");
         return;
       }
-      postData(accountNumber);
+      document.getElementById("pay").value = "Processing..";
+      postData(accountNumber, updateHandlerCallback);
+    });
+  
+    document.getElementById("terms") &&
+    document.getElementById("terms").addEventListener("click", () => {
+      if (document.getElementById("terms").checked) {
+        document.getElementById("pay").disabled = false;
+        return
+      }
+      document.getElementById("pay").disabled = true;
     });
 }
 
@@ -66,7 +76,7 @@ function addStyles() {
       transition:.35s ease-in-out;
       width:100%
     }
-    .inp:checked+label:before,.inp[type=button]:hover {
+    .inp:checked+label:before,.inp[type=button]:enabled:hover {
       background-color:#00b4a7
     }
     .inp:checked+label:after {
@@ -75,7 +85,7 @@ function addStyles() {
     .inp:focus {
       outline:0
     }
-    .inp[type=button]:hover {
+    .inp[type=button][disabled=false]:enabled:hover {
       border-color:#00b4a7;
       color:#fff
     }
@@ -138,7 +148,7 @@ export async function getData(accountNumber) {
     document.querySelector("#beneficiaries").innerHTML = bene;
 }
 
-async function postData(accountNumber) {
+async function postData(accountNumber, updateHandlerCallback) {
   let selectedBeneIndex =
     document.getElementById("beneficiaries").selectedIndex;
   let res = await getBeneficiaries(accountNumber);
@@ -154,19 +164,20 @@ async function postData(accountNumber) {
   };
   let result = await postTransaction(data);
   console.log(result);
+  document.getElementById("pay").value = "PAY";
   alert("Transaction Succesful");
+  updateHandlerCallback()
   document.getElementById("qp_form").reset();
 }
 
-export function initializeAll(userDetails) {
-  console.log("in Quick");
+export function initializeAll(userDetails, updateHandlerCallback) {
   console.log(userDetails);
   let accountNumber =
     (userDetails &&
       userDetails.hasOwnProperty("accountNumber") &&
       userDetails.accountNumber) ||
     (localStorage && localStorage.getItem("currentAccNum"));
-  addHtml(accountNumber);
+  addHtml(accountNumber, updateHandlerCallback);
   addStyles();
   getData(accountNumber);
 }

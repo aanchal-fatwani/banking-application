@@ -17,11 +17,14 @@ const App = () => {
   const [userDetails, setUserDetails] = useState({ accountNumber: t, name: n });
   console.log("in App");
   console.log(userDetails);
-  
+
   return (
-    <div style={{ backgroundColor: "rgb(227,227,227)" }}>
+    <div style={{ backgroundColor: "rgb(227,227,227)", height: "100vh" }}>
       <Header userDetails={userDetails} setUserDetails={setUserDetails} />
-      <div style={{ width: "99%", height: "calc(100vh - 60px)" }}>
+      <div style={{
+        // width: "99%",
+        // height: "calc(100vh - 60px)" 
+      }}>
         <Suspense
           fallback={
             <div style={{ top: "50%", position: "absolute", left: "48%" }}>
