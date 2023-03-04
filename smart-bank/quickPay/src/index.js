@@ -39,12 +39,12 @@ function addHtml(accountNumber, updateHandlerCallback) {
       document.getElementById("pay").value = "Processing..";
       postData(accountNumber, updateHandlerCallback);
     });
-  
-    document.getElementById("terms") &&
+
+  document.getElementById("terms") &&
     document.getElementById("terms").addEventListener("click", () => {
       if (document.getElementById("terms").checked) {
         document.getElementById("pay").disabled = false;
-        return
+        return;
       }
       document.getElementById("pay").disabled = true;
     });
@@ -135,7 +135,6 @@ function addStyles() {
 
 export async function getData(accountNumber) {
   let res = await getBeneficiaries(accountNumber);
-  console.log(res);
   let bene = "";
   for (const element of res) {
     let num = element.beneficiaryAccountNumber;
@@ -152,7 +151,6 @@ async function postData(accountNumber, updateHandlerCallback) {
   let selectedBeneIndex =
     document.getElementById("beneficiaries").selectedIndex;
   let res = await getBeneficiaries(accountNumber);
-  console.log(res);
   let data = {
     referenceNumber: Math.floor(1000 + Math.random() * 9000) + "",
     date: new Date(),
@@ -163,15 +161,13 @@ async function postData(accountNumber, updateHandlerCallback) {
     description: "Quick transfer",
   };
   let result = await postTransaction(data);
-  console.log(result);
   document.getElementById("pay").value = "PAY";
   alert("Transaction Succesful");
-  updateHandlerCallback()
+  updateHandlerCallback();
   document.getElementById("qp_form").reset();
 }
 
 export function initializeAll(userDetails, updateHandlerCallback) {
-  console.log(userDetails);
   let accountNumber =
     (userDetails &&
       userDetails.hasOwnProperty("accountNumber") &&
