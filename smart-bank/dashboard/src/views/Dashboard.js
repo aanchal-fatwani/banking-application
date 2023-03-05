@@ -25,70 +25,91 @@ import { getBeneficiaries } from "api/beneficiaries";
 
 const useStyles = makeStyles(styles);
 
-import { initializeAll } from "quickPay/quickPayIndex";
+// import { initializeAll } from "quickPay/quickPayIndex";
 
-export default function AdminDashboard({ userDetails }) {
+export default function AdminDashboard({
+  userDetails,
+  initialUserBalance = 0,
+  initialBeneficiaries = [],
+  initialLastPaidTxnName = "",
+  initialLastTxnDate = null,
+}) {
   const classes = useStyles();
 
-  const [userBalance, setUserBalance] = useState(0);
+  const [userBalance, setUserBalance] = useState(initialUserBalance);
   const [userAccountNumber, setUserAccountNumber] = useState(
     (userDetails &&
       userDetails.hasOwnProperty("accountNumber") &&
       userDetails.accountNumber) ||
-    (localStorage && localStorage.getItem("currentAccNum"))
+      (localStorage && localStorage.getItem("currentAccNum"))
   );
 
   const [lastTxnAmt, setLastTxnAmt] = useState(0);
-  const [lastTxnDate, setLastTxnDate] = useState(null);
+  const [lastTxnDate, setLastTxnDate] = useState(initialLastTxnDate);
 
-  const [lastPaidTxnName, setLastPaidTxnName] = useState("");
+  const [lastPaidTxnName, setLastPaidTxnName] = useState(
+    initialLastPaidTxnName
+  );
   const [lastPaidTxnAmt, setLastPaidTxnAmt] = useState(0);
 
-  const [beneficiaries, setBeneficiaries] = useState([]);
+  const [beneficiaries, setBeneficiaries] = useState(initialBeneficiaries);
 
-  useEffect(() => {
-    getUserDetails();
-    getTxnDetails();
-    getBeneficiaryDetails();
-  }, []);
-  
-  const updateHandlerCallback = () => {
+  const getAllInitialData = () =>{
     getUserDetails();
     getTxnDetails();
     getBeneficiaryDetails();
   }
+  useEffect(() => {
+    // getUserDetails();
+    // getTxnDetails();
+    // getBeneficiaryDetails();
+    getAllInitialData()
+  }, []);
+
+
+  const updateHandlerCallback = () => {
+    // getUserDetails();
+    // getTxnDetails();
+    // getBeneficiaryDetails();
+    getAllInitialData()
+  };
 
   useEffect(() => {
-    if (beneficiaries.length) initializeAll(userDetails, updateHandlerCallback);
+    if (beneficiaries.length) {
+      import("quickPay/quickPayIndex").then((module) => {
+        if (
+          document.getElementById("quick_pay") &&
+          typeof module.initializeAll == "function"
+        ) {
+          module.initializeAll(userDetails, updateHandlerCallback);
+        }
+      });
+    }
   }, [beneficiaries]);
 
   async function getBeneficiaryDetails() {
     let res = await getBeneficiaries(userAccountNumber);
-    console.log(res);
     setBeneficiaries([...res]);
   }
 
   async function getUserDetails() {
     let res = await getUserByAccount(userAccountNumber);
-    console.log(res);
     const { accountNumber, balance } = res;
     setUserBalance(balance);
   }
 
   async function getTxnDetails() {
     let res = await getTransactions();
-    console.log(res);
     res = res.filter((el) => {
       return (
         el.senderAccount === userAccountNumber ||
         el.receiverAccount === userAccountNumber
       );
     });
-    console.log(res);
     let usersLastTxn = res[res.length - 1];
     setLastTxnAmt(usersLastTxn.amount);
     let d = new Date(usersLastTxn.date);
-    setLastTxnDate(d.toDateString().split(' ').slice(1).join(' '));
+    setLastTxnDate(d.toDateString().split(" ").slice(1).join(" "));
 
     res = res.filter((el) => {
       return el.senderAccount === userAccountNumber;
@@ -97,8 +118,6 @@ export default function AdminDashboard({ userDetails }) {
       let usersLastPaidTxn = res[res.length - 1];
       setLastPaidTxnAmt(usersLastPaidTxn.amount);
       let user = await getUserByAccount(usersLastPaidTxn.receiverAccount);
-      console.log(user);
-      // user = user;
       setLastPaidTxnName(user.name);
     }
   }
