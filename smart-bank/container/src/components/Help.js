@@ -44,14 +44,14 @@ const Help = () => {
   }, []);
 
   return (
-    <div style={{
-      // height: "calc(100vh - 140px)"
-      backgroundColor:"rgb(227, 227, 227)"
-    }}>
+    <div
+      style={{
+        // height: "calc(100vh - 140px)"
+        backgroundColor: "rgb(227, 227, 227)",
+      }}
+    >
       <h1 className="faq-head">Frequently Asked Questions</h1>
-      <div className="faq-container">
-        {faqsList()}
-      </div>
+      <div className="faq-container">{faqsList()}</div>
       <div className="further-ques">
         <div>More Questions?</div>
         <div className="support">

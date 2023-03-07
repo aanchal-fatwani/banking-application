@@ -12,9 +12,9 @@ const Dashboard = ({ userDetails }) => {
     <>
       <div
         ref={ref}
-        style={{ 
-          // height: "95%", 
-          backgroundColor: "rgb(227,227,227)" }}
+        style={{
+          backgroundColor: "rgb(227,227,227)",
+        }}
       ></div>
     </>
   );

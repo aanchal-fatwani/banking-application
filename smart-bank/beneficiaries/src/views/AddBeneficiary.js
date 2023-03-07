@@ -22,7 +22,7 @@ const styles = {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",
-  }
+  },
 };
 const useStyles = makeStyles(styles);
 
@@ -33,7 +33,7 @@ export default function AddBeneficiary(props) {
     defaultBeneName = "",
     defaultBeneAcc = "",
     userAccountNum,
-    updateHandlerCallback
+    updateHandlerCallback,
   } = props;
 
   const [ifsc, setIfsc] = useState(defaultIfsc);

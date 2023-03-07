@@ -4,8 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 const mount = (el, navigate, userDetails, setUserDetails) => {
-  console.log("in Head");
-  console.log(userDetails);
   const root = createRoot(el);
 
   root.render(

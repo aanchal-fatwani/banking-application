@@ -5,8 +5,6 @@ import App from "./App";
 
 let root;
 const mount = (el, navigate, location, setUserDetails, userDetails) => {
-  console.log("in Auth");
-  console.log(userDetails);
   root = createRoot(el);
   root.render(
     <div id="authRoot">
@@ -22,8 +20,6 @@ const mount = (el, navigate, location, setUserDetails, userDetails) => {
 };
 
 const render = (navigate, location, setUserDetails, userDetails) => {
-  console.log("in Auth");
-  console.log(userDetails);
   root.render(
     <div id="authRoot">
       <BrowserRouter>

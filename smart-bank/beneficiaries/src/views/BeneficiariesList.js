@@ -103,10 +103,10 @@ export default function BeneficiariesList(props) {
   useEffect(() => {
     getAllBeneficiaries();
   }, []);
-  
+
   const updateHandlerCallback = () => {
     getAllBeneficiaries();
-  }
+  };
 
   useEffect(() => {
     setSearchData(
@@ -241,15 +241,19 @@ export default function BeneficiariesList(props) {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection:"column",
-                    fontSize:"30px",
-                    fontWeight:"700",
-                    textAlign:"center"
+                    flexDirection: "column",
+                    fontSize: "30px",
+                    fontWeight: "700",
+                    textAlign: "center",
                   }}
                 >
-                  <div style={{
-                    margin:"80px",
-                  }}>Currently you don't have any Beneficiaries Added</div>
+                  <div
+                    style={{
+                      margin: "80px",
+                    }}
+                  >
+                    Currently you don't have any Beneficiaries Added
+                  </div>
                 </div>
               </GridItem>
             </GridContainer>
@@ -290,21 +294,24 @@ export default function BeneficiariesList(props) {
               </GridContainer>
             )
           )}
-           <GridContainer>
-              <GridItem xs={12} sm={12} md={11}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection:"column",
-                    textAlign:"center",
-                    marginLeft: "7%"
-                  }}
-                >
-                  <AddBeneficiary userAccountNum={userAccountNum} updateHandlerCallback={updateHandlerCallback} />
-                </div>
-              </GridItem>
-            </GridContainer>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={11}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  textAlign: "center",
+                  marginLeft: "7%",
+                }}
+              >
+                <AddBeneficiary
+                  userAccountNum={userAccountNum}
+                  updateHandlerCallback={updateHandlerCallback}
+                />
+              </div>
+            </GridItem>
+          </GridContainer>
         </Box>
       </Card>
     </StylesProvider>

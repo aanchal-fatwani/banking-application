@@ -5,7 +5,6 @@ const ProtectedRoute = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   if (!getCookie("username")) {
-    console.log("Protected Route");
     localStorage.clear();
   }
 
@@ -30,7 +29,6 @@ const ProtectedRoute = (props) => {
   useEffect(() => {
     checkUserToken();
   }, []);
-//   }, [isLoggedIn]);
   return <React.Fragment>{isLoggedIn ? props.children : null}</React.Fragment>;
 };
 export default ProtectedRoute;

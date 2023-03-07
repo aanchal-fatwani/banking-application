@@ -3,7 +3,6 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const commonConfig = require("./webpack.common");
 const packageJson = require("../package.json");
 const dotenv = require("dotenv");
-// var config = require("config");
 
 dotenv.config({ path: "./config.env" });
 
@@ -15,7 +14,7 @@ const prodConfig = {
 
   output: {
     filename: "[name].[contenthash].js",
-    publicPath: `${domain}/`
+    publicPath: `${domain}/`,
   },
   plugins: [
     new ModuleFederationPlugin({

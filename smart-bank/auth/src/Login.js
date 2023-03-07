@@ -24,12 +24,9 @@ const Login = ({ customNavigate, setUserDetails }) => {
     if (res.length) {
       res = res[0];
       setCookie("username", res.name, 60);
-      console.log(localStorage);
       localStorage && localStorage.setItem("currentAccNum", res.accountNumber);
-      console.log(localStorage);
       localStorage && localStorage.setItem("currentName", res.name);
-      console.log(localStorage);
-      setUserDetails(res);
+      if (typeof setUserDetails == "function") setUserDetails(res);
       customNavigate("/");
     } else {
       alert("User account does not exist. Please reach out to support");
@@ -42,7 +39,6 @@ const Login = ({ customNavigate, setUserDetails }) => {
     date.setTime(date.getTime() + expMins * 60 * 1000);
     const expires = "expires=" + date.toUTCString();
     document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
-    console.log(document.cookie);
   }
 
   return (
@@ -89,7 +85,8 @@ const Login = ({ customNavigate, setUserDetails }) => {
             Not registered?
             <br />
             <span>
-              Reach out to us through Contact section or visit your nearest branch
+              Reach out to us through Contact section or visit your nearest
+              branch
             </span>
           </p>
         </form>

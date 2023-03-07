@@ -190,7 +190,7 @@ export default function CustomTable(props) {
 
   function stableSort(array, comparator) {
     let org = [...array];
-    var tempArray = JSON.parse(JSON.stringify(array));
+    let tempArray = JSON.parse(JSON.stringify(array));
     let modified = tempArray.map((el, i) => {
       el.amount = parseInt(el.amount.slice(1));
       el.date = new Date(el.date);

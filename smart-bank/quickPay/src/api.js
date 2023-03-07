@@ -37,7 +37,7 @@ export async function postTransaction(data) {
   }
 }
 
-let bene = {
+let beneficiaries = {
   status: "success",
   results: 11,
   data: {
@@ -136,6 +136,6 @@ let bene = {
 
 function getBeneficiariesLocal() {
   return new Promise((res, rej) => {
-    res(bene);
+    res(beneficiaries);
   });
 }

@@ -65,7 +65,8 @@ const App = ({ navigate, userDetails, setUserDetails }) => {
             onClick={() => {
               setUserDetails(null);
               localStorage.clear();
-              document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+              document.cookie =
+                "username=; expires=Thu, 01 Jan 2000 00:00:00 UTC; path=/;";
               customNavigate("/auth/login");
             }}
           >

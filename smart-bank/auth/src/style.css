@@ -30,12 +30,12 @@
   text-align: center;
 }
 .card .front form button {
-  background-color: #00B7A8;
+  background-color: #00b7a8;
   padding: 12px 60px 12px 60px;
   margin-top: 30px;
   cursor: pointer;
-  color:white;
-  font-weight:600;
+  color: white;
+  font-weight: 600;
 }
 .f1 {
   padding: 13px 60px 13px 60px;
