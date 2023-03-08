@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionsList should render component correctly 1`] = `ReactWrapper {}`;
+
+exports[`TransactionsList should render component correctly with initial data 1`] = `ReactWrapper {}`;
+
+exports[`TransactionsList should render component correctly with no data 1`] = `ReactWrapper {}`;

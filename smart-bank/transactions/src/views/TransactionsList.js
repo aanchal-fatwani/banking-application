@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     paddingBottom: "10px",
-    backgroundColor:"#e3e3e3"
+    backgroundColor: "#e3e3e3",
   },
   fontSize: {
     fontSize: theme.spacing(1),
@@ -122,13 +122,21 @@ const orgthead = [
 
 export default function TransactionsList(props) {
   const classes = useStyles();
-  const { str = "", data = [], userDetails } = props;
+  const {
+    str = "",
+    data = [],
+    userDetails,
+    transactionsData = [],
+    initialTotalBal = 0,
+    initialBeneficiaries = [],
+    initialOrgtxnData = [],
+  } = props;
 
   const [searchStr, setSearchString] = useState(str);
   const [searchData, setSearchData] = useState(data);
-  const [txnData, setTxnData] = useState([]);
-  const [orgtxnData, setOrgTxnData] = useState([]);
-  const [totalBal, setTotalBal] = useState(0);
+  const [txnData, setTxnData] = useState(transactionsData);
+  const [orgtxnData, setOrgTxnData] = useState(initialOrgtxnData);
+  const [totalBal, setTotalBal] = useState(initialTotalBal);
   const [userAccountNum, setUserAccountNum] = useState(
     (userDetails &&
       userDetails.hasOwnProperty("accountNumber") &&
@@ -142,7 +150,7 @@ export default function TransactionsList(props) {
     description: true,
     amount: true,
   });
-  const [beneficiaries, setBeneficiaries] = useState([]);
+  const [beneficiaries, setBeneficiaries] = useState(initialBeneficiaries);
 
   useEffect(() => {
     if (beneficiaries.length) {
@@ -151,7 +159,6 @@ export default function TransactionsList(props) {
           document.getElementById("quick_pay") &&
           typeof module.initializeAll == "function"
         ) {
-          console.log("Initialised");
           module.initializeAll(userDetails, updateHandlerCallback);
         }
       });
@@ -160,7 +167,6 @@ export default function TransactionsList(props) {
 
   async function getBeneficiaryDetails() {
     let res = await getBeneficiaries(userAccountNum);
-    console.log(res);
     setBeneficiaries([...res]);
   }
 
@@ -172,11 +178,17 @@ export default function TransactionsList(props) {
     let user = await getUser();
     setTotalBal(user.balance);
   }
-  
-  const updateHandlerCallback = () => {
+  const getAllInitialData = () => {
     setBalance();
     getAllTransactions();
-  }
+    getBeneficiaryDetails();
+  };
+
+  const updateHandlerCallback = () => {
+    // setBalance();
+    // getAllTransactions();
+    getAllInitialData();
+  };
 
   useEffect(() => {
     setThead(
@@ -197,8 +209,9 @@ export default function TransactionsList(props) {
   }, [fields]);
 
   useEffect(() => {
-    getAllTransactions();
-    getBeneficiaryDetails();
+    // getAllTransactions();
+    // getBeneficiaryDetails();
+    getAllInitialData();
   }, []);
 
   useEffect(() => {
@@ -214,7 +227,6 @@ export default function TransactionsList(props) {
 
   async function getAllTransactions() {
     let res = await getTransactions(userAccountNum);
-    console.log(res);
     if (res) {
       res = res.map((el) => {
         let { receiverAccount, senderAccount, date, description, amount } = el;
@@ -240,7 +252,6 @@ export default function TransactionsList(props) {
     } else {
       res = [];
     }
-    console.log(res);
     setTxnData(res);
     setOrgTxnData(res);
   }
@@ -259,114 +270,120 @@ export default function TransactionsList(props) {
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
           <Box>
-            {txnData.length > 0 && <div
-              style={{
-                marginLeft: "6px",
-                backgroundColor: "white",
-                paddingLeft: "25px",
-              }}
-            >
-              <Grid container spacing={2} alignItems="flex-end">
-                <Grid item xs={10} style={{ padding: "0 8px 8px 0" }}>
-                  <TextField
-                    fullWidth
-                    onChange={(e) => setSearchString(e.target.value)}
-                    value={searchStr}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment
-                          position="start"
-                          style={{ marginRight: "30px" }}
-                        >
-                          <SvgIcon fontSize="large" color="action">
-                            <Search />
-                          </SvgIcon>
-                        </InputAdornment>
-                      ),
-                      className: classes.input,
-                    }}
-                    data-testid="search"
-                    placeholder="Search Transactions"
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs={1}>
-                  <FilterList
-                    onClick={filterFields}
-                    style={{ marginBottom: "25px", fontSize: "50px" }}
-                    data-testid="filter"
-                  />
-                </Grid>
-                {searchStr && (
-                  <Grid item xs={2}>
-                    {searchData.length === 0 && (
-                      <Typography
-                        variant="subtitle1"
-                        style={{ paddingTop: "10px" }}
-                      >
-                        No results found
-                      </Typography>
-                    )}
+            {txnData.length > 0 && (
+              <div
+                style={{
+                  marginLeft: "6px",
+                  backgroundColor: "white",
+                  paddingLeft: "25px",
+                }}
+              >
+                <Grid container spacing={2} alignItems="flex-end">
+                  <Grid item xs={10} style={{ padding: "0 8px 8px 0" }}>
+                    <TextField
+                      fullWidth
+                      onChange={(e) => setSearchString(e.target.value)}
+                      value={searchStr}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment
+                            position="start"
+                            style={{ marginRight: "30px" }}
+                          >
+                            <SvgIcon fontSize="large" color="action">
+                              <Search />
+                            </SvgIcon>
+                          </InputAdornment>
+                        ),
+                        className: classes.input,
+                      }}
+                      data-testid="search"
+                      placeholder="Search Transactions"
+                      variant="outlined"
+                    />
                   </Grid>
+                  <Grid item xs={1}>
+                    <FilterList
+                      onClick={filterFields}
+                      style={{ marginBottom: "25px", fontSize: "50px" }}
+                      data-testid="filter"
+                    />
+                  </Grid>
+                  {searchStr && (
+                    <Grid item xs={2}>
+                      {searchData.length === 0 && (
+                        <Typography
+                          variant="subtitle1"
+                          style={{ paddingTop: "10px" }}
+                        >
+                          No results found
+                        </Typography>
+                      )}
+                    </Grid>
+                  )}
+                </Grid>
+                {ck && (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={fields["date"]}
+                          onChange={(e) => filterFields(e)}
+                          name="date"
+                          color="primary"
+                        />
+                      }
+                      label="Date"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={fields["description"]}
+                          onChange={(e) => filterFields(e)}
+                          name="description"
+                          color="primary"
+                        />
+                      }
+                      label="Note"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={fields["amount"]}
+                          onChange={(e) => filterFields(e)}
+                          name="amount"
+                          color="primary"
+                        />
+                      }
+                      label="Amount"
+                    />
+                  </>
                 )}
-              </Grid>
-              {ck && (
-                <>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={fields["date"]}
-                        onChange={(e) => filterFields(e)}
-                        name="date"
-                        color="primary"
-                      />
-                    }
-                    label="Date"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={fields["description"]}
-                        onChange={(e) => filterFields(e)}
-                        name="description"
-                        color="primary"
-                      />
-                    }
-                    label="Note"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={fields["amount"]}
-                        onChange={(e) => filterFields(e)}
-                        name="amount"
-                        color="primary"
-                      />
-                    }
-                    label="Amount"
-                  />
-                </>
-              )}
-            </div>}
+              </div>
+            )}
             {txnData.length == 0 && (
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={12}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection:"column",
-                    fontSize:"30px",
-                    fontWeight:"700",
-                    textAlign:"center"
-                  }}
-                >
-                  <div style={{
-                    margin:"80px",
-                  }}>Currently you haven't made any Transactions</div>
-                </div>
-              </GridItem>
-            </GridContainer>
-          )}
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      fontSize: "30px",
+                      fontWeight: "700",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        margin: "80px",
+                      }}
+                    >
+                      Currently you haven't made any Transactions
+                    </div>
+                  </div>
+                </GridItem>
+              </GridContainer>
+            )}
             {!searchStr && txnData.length > 0 ? (
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
@@ -400,7 +417,10 @@ export default function TransactionsList(props) {
                 </GridContainer>
               )
             )}
-            <GridContainer className={classes.backgroundColor} style={{justifyContent:"center"}}>
+            <GridContainer
+              className={classes.backgroundColor}
+              style={{ justifyContent: "center" }}
+            >
               {totalBal ? (
                 <GridItem xs={12} sm={6} md={3}>
                   <Card>
