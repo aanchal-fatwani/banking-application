@@ -133,6 +133,9 @@ function addStyles() {
   `;
 }
 
+/**
+ * Fetches the list of benficiaries
+ */
 export async function getData(accountNumber) {
   let res = await getBeneficiaries(accountNumber);
   let bene = "";
@@ -147,6 +150,9 @@ export async function getData(accountNumber) {
     document.querySelector("#beneficiaries").innerHTML = bene;
 }
 
+/**
+ * Creates a new transaction towards the beneficiary
+ */
 async function postData(accountNumber, updateHandlerCallback) {
   let selectedBeneIndex =
     document.getElementById("beneficiaries").selectedIndex;
@@ -167,6 +173,9 @@ async function postData(accountNumber, updateHandlerCallback) {
   document.getElementById("qp_form").reset();
 }
 
+/**
+ * Loads all the view for quick pay on page load
+ */
 export function initializeAll(userDetails, updateHandlerCallback) {
   let accountNumber =
     (userDetails &&

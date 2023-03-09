@@ -104,6 +104,9 @@ export default function BeneficiariesList(props) {
     getAllBeneficiaries();
   }, []);
 
+/**
+ * Updates the page if the quick pay section completes transaction
+ */
   const updateHandlerCallback = () => {
     getAllBeneficiaries();
   };
@@ -118,6 +121,9 @@ export default function BeneficiariesList(props) {
     );
   }, [searchStr]);
 
+/**
+ * Fetches and modifies the beneficiaries data for display
+ */
   async function getAllBeneficiaries() {
     let res = await getBeneficiaries();
     if (res) {
@@ -137,6 +143,9 @@ export default function BeneficiariesList(props) {
     setOrgBeneData(res);
   }
 
+/**
+ * Filter the no. of fields to be shown in table 
+ */
   function filterFields(e) {
     setCk(!ck);
     if (ck) {

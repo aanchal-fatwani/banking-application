@@ -43,6 +43,9 @@ export default function AddBeneficiary(props) {
   const [errorOcc, setErrorOcc] = useState(false);
   const [invalidCreds, setInvalidCreds] = useState(false);
 
+/**
+ * Registers the new beneficiary if the details are valid
+ */
   async function addNewBeneficiary() {
     if (!(ifsc && beneName && beneAcc)) {
       setOpen(true);

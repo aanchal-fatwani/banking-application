@@ -54,6 +54,9 @@ export default function AdminDashboard({
 
   const [beneficiaries, setBeneficiaries] = useState(initialBeneficiaries);
 
+/**
+ * Fetches all the data on page load
+ */
   const getAllInitialData = () =>{
     getUserDetails();
     getTxnDetails();
@@ -67,6 +70,9 @@ export default function AdminDashboard({
   }, []);
 
 
+/**
+ * Updates the page if the quick pay section completes transaction
+ */
   const updateHandlerCallback = () => {
     // getUserDetails();
     // getTxnDetails();
@@ -87,17 +93,26 @@ export default function AdminDashboard({
     }
   }, [beneficiaries]);
 
+/**
+ * Fetches all the beneficiaries
+ */
   async function getBeneficiaryDetails() {
     let res = await getBeneficiaries(userAccountNumber);
     setBeneficiaries([...res]);
   }
 
+/**
+ * Fetches the user details for a particular user
+ */
   async function getUserDetails() {
     let res = await getUserByAccount(userAccountNumber);
     const { accountNumber, balance } = res;
     setUserBalance(balance);
   }
 
+/**
+ * Fetches transactions details for a particular user
+ */
   async function getTxnDetails() {
     let res = await getTransactions();
     res = res.filter((el) => {
