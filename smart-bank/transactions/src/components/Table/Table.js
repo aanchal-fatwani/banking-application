@@ -192,8 +192,10 @@ export default function CustomTable(props) {
     let org = [...array];
     let tempArray = JSON.parse(JSON.stringify(array));
     let modified = tempArray.map((el, i) => {
-      el.amount = parseInt(el.amount.slice(1));
-      el.date = new Date(el.date);
+      if (el.amount)
+        el.amount = parseInt(el.amount.slice(1));
+      if (el.date)
+        el.date = new Date(el.date);
       el.index = i;
       return el;
     });
@@ -300,7 +302,7 @@ export default function CustomTable(props) {
                   ) : null}
                   {Object.keys(el).map((ele, key) => {
                     let value = el[ele];
-                    if(ele == 'date'){
+                    if (ele == 'date') {
                       value = value.toDateString().split(" ");
                       value = `${value[3]} ${value[1]} ${value[2]} `;
                       value = `${value}`
