@@ -303,7 +303,7 @@ export default function BeneficiariesList(props) {
               </GridContainer>
             )
           )}
-          <GridContainer>
+          {dataLoaded && <GridContainer>
             <GridItem xs={12} sm={12} md={11}>
               <div
                 style={{
@@ -320,7 +320,7 @@ export default function BeneficiariesList(props) {
                 />
               </div>
             </GridItem>
-          </GridContainer>
+          </GridContainer>}
         </Box>
       </Card>
     </StylesProvider>

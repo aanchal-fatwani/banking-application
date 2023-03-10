@@ -151,6 +151,7 @@ export default function TransactionsList(props) {
     amount: true,
   });
   const [beneficiaries, setBeneficiaries] = useState(initialBeneficiaries);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     if (beneficiaries.length) {
@@ -270,6 +271,7 @@ async function getAllTransactions() {
     }
     setTxnData(res);
     setOrgTxnData(res);
+    setDataLoaded(true);
   }
 
 /**
@@ -380,7 +382,7 @@ function filterFields(e) {
                 )}
               </div>
             )}
-            {txnData.length == 0 && (
+            {dataLoaded && txnData.length == 0 && (
               <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
                   <div
