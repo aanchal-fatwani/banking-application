@@ -54,7 +54,7 @@ function addStyles() {
   let styleElement = document.createElement("style");
   let styleText = `
   .inp:focus,select:active,select:focus {
-      border-color:#00b4a7
+      border-color:#d60f90
     }
     select,select option {
       font-size:20px
@@ -77,7 +77,7 @@ function addStyles() {
       width:100%
     }
     .inp:checked+label:before,.inp[type=button]:enabled:hover {
-      background-color:#00b4a7
+      background-color:#d60f90
     }
     .inp:checked+label:after {
       opacity:1
@@ -86,7 +86,7 @@ function addStyles() {
       outline:0
     }
     .inp[type=button][disabled=false]:enabled:hover {
-      border-color:#00b4a7;
+      border-color:#d60f90;
       color:#fff
     }
     .inp[type=checkbox] {

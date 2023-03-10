@@ -30,7 +30,7 @@
   text-align: center;
 }
 .card .front form button {
-  background-color: #00b7a8;
+  background-color: #d60f90;
   padding: 12px 60px 12px 60px;
   margin-top: 30px;
   cursor: pointer;
@@ -54,7 +54,7 @@
 }
 .login_word {
   margin: 30px auto;
-  border-bottom: 5px solid #01afa4;
+  border-bottom: 5px solid #f606a2;
   width: 150px;
   font-weight: bold;
 }
@@ -71,7 +71,7 @@
 }
 .card .front span {
   /* cursor: pointer; */
-  color: #01afa4;
+  color: #f606a2;
   font-size: 20px;
 }
 /*back card*/

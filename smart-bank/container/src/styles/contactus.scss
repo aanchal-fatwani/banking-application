@@ -31,7 +31,7 @@ body {
 
 .waves {
   height: 80px;
-  background: linear-gradient(to bottom left, #00b7a8, #e72);
+  background: linear-gradient(to bottom left, #d60f90, #e72);
 }
 
 h1 {
@@ -46,7 +46,7 @@ h1 {
 .send_button {
   display: inline-flex;
   width: 100%;
-  background-color: #00b7a8;
+  background-color: #d60f90;
   border: none;
   border-radius: 3px;
   padding: 2ch;
@@ -70,7 +70,7 @@ h1 {
 }
 
 @mixin input-focus {
-  border-color: #00b7a8;
+  border-color: #d60f90;
 }
 
 @mixin label {
@@ -87,7 +87,7 @@ h1 {
   position: absolute;
   top: 0;
   font-size: 0.9em;
-  color: #00b7a8;
+  color: #d60f90;
   font-weight: bold;
   transform: translateY(-50%);
   background-color: #fff;
