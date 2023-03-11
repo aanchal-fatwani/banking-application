@@ -166,44 +166,11 @@ export default function TransactionsList(props) {
     }
   }, [beneficiaries]);
 
-/**
- * Fetches all the beneficiaries
- */
-  async function getBeneficiaryDetails() {
-    let res = await getBeneficiaries(userAccountNum);
-    setBeneficiaries([...res]);
-  }
-
   useEffect(() => {
     setBalance();
   }, []);
 
-/**
- * Fetches the balance of the user
- */
-  async function setBalance() {
-    let user = await getUser();
-    setTotalBal(user.balance);
-  }
-
-/**
- * Fetches all the data on page load
- */ 
-  const getAllInitialData = () => {
-    setBalance();
-    getAllTransactions();
-    getBeneficiaryDetails();
-  };
-
-/**
- * Updates the page if the quick pay section completes transaction
- */
-  const updateHandlerCallback = () => {
-    // setBalance();
-    // getAllTransactions();
-    getAllInitialData();
-  };
-
+  
   useEffect(() => {
     setThead(
       orgthead.filter((el) => {
@@ -223,12 +190,6 @@ export default function TransactionsList(props) {
   }, [fields]);
 
   useEffect(() => {
-    // getAllTransactions();
-    // getBeneficiaryDetails();
-    getAllInitialData();
-  }, []);
-
-  useEffect(() => {
     setSearchData(
       txnData
         .filter(
@@ -239,10 +200,48 @@ export default function TransactionsList(props) {
     );
   }, [searchStr]);
 
-/**
- * Fetches and modifies the transactions data for display
- */
-async function getAllTransactions() {
+  
+  /**
+   * Fetches all the data on page load
+   */
+  const getAllInitialData = () => {
+    setBalance();
+    getAllTransactions();
+    getBeneficiaryDetails();
+  };
+
+  
+  useEffect(() => {
+    getAllInitialData();
+  }, []);
+  
+  /**
+   * Fetches all the beneficiaries
+   */
+  async function getBeneficiaryDetails() {
+    let res = await getBeneficiaries(userAccountNum);
+    setBeneficiaries([...res]);
+  }
+
+  /**
+   * Fetches the balance of the user
+   */
+  async function setBalance() {
+    let user = await getUser();
+    setTotalBal(user.balance);
+  }
+
+  /**
+   * Updates the page if the quick pay section completes transaction
+   */
+  const updateHandlerCallback = () => {
+    getAllInitialData();
+  };
+
+  /**
+   * Fetches and modifies the transactions data for display
+   */
+  async function getAllTransactions() {
     let res = await getTransactions(userAccountNum);
     if (res) {
       res = res.map((el) => {
@@ -258,8 +257,6 @@ async function getAllTransactions() {
         amount = `${plusMinus}${amount}`;
 
         date = new Date(date);
-        // date = date.toDateString().split(" ");
-        // date = `${date[3]} ${date[1]} ${date[2]} `;
         return {
           date,
           description,
@@ -274,10 +271,10 @@ async function getAllTransactions() {
     setDataLoaded(true);
   }
 
-/**
- * Filter the no. of fields to be shown in table 
- */
-function filterFields(e) {
+  /**
+   * Filter the no. of fields to be shown in table
+   */
+  function filterFields(e) {
     setCk(!ck);
     if (ck) {
       let f = { ...fields };

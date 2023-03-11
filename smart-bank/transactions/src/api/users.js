@@ -19,39 +19,6 @@ export async function getUser() {
   }
 }
 
-// export async function setUser({ user_id, name, email, password, balance }) {
-//   try {
-//     const res = await axios.post(`${hostUrl}/users`, {
-//       user_id,
-//       name,
-//       email,
-//       password,
-//       balance,
-//     });
-//     return res.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// export async function getUserById(id) {
-//   try {
-//     const response = await axios.get(`${hostUrl}/user/${id}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// export async function updateUserDetails(id, data) {
-//   try {
-//     const response = await axios.put(`${hostUrl}/users/${id}`, data);
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 let users = {
   status: "success",
   results: 5,
