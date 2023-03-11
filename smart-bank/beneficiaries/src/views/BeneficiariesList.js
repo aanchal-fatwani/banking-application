@@ -36,7 +36,6 @@ const useStyles = makeStyles(() => ({
     boxShadow: "none",
     margin: "0",
     backgroundColor: "rgb(227, 227, 227)",
-    // height: "calc(100vh - 60px)",
     fontSize: "18px",
     padding: "25px",
   },

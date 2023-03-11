@@ -25,7 +25,6 @@ import { getBeneficiaries } from "api/beneficiaries";
 
 const useStyles = makeStyles(styles);
 
-// import { initializeAll } from "quickPay/quickPayIndex";
 
 export default function AdminDashboard({
   userDetails,
@@ -63,35 +62,28 @@ export default function AdminDashboard({
     getBeneficiaryDetails();
   }
   useEffect(() => {
-    // getUserDetails();
-    // getTxnDetails();
-    // getBeneficiaryDetails();
     getAllInitialData()
   }, []);
-
 
 /**
  * Updates the page if the quick pay section completes transaction
  */
-  const updateHandlerCallback = () => {
-    // getUserDetails();
-    // getTxnDetails();
-    // getBeneficiaryDetails();
-    getAllInitialData()
-  };
+const updateHandlerCallback = () => {
+  getAllInitialData()
+};
 
-  useEffect(() => {
-    if (beneficiaries.length) {
-      import("quickPay/quickPayIndex").then((module) => {
-        if (
-          document.getElementById("quick_pay") &&
-          typeof module.initializeAll == "function"
-        ) {
-          module.initializeAll(userDetails, updateHandlerCallback);
-        }
-      });
-    }
-  }, [beneficiaries]);
+useEffect(() => {
+  if (beneficiaries.length) {
+    import("quickPay/quickPayIndex").then((module) => {
+      if (
+        document.getElementById("quick_pay") &&
+        typeof module.initializeAll == "function"
+      ) {
+        module.initializeAll(userDetails, updateHandlerCallback);
+      }
+    });
+  }
+}, [beneficiaries]);
 
 /**
  * Fetches all the beneficiaries
@@ -145,8 +137,6 @@ export default function AdminDashboard({
           display: "flex",
           justifyContent: "space-around",
           backgroundColor: "#e3e3e3",
-          // width: "99%",
-          // height: "calc(100vh - 60px)"
         }}
       >
         {userBalance ? (
