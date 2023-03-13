@@ -251,7 +251,6 @@ export default function CustomTable(props) {
                 <CollapsibleRows key={key} row={el} details={el["order"]} />
               ) : (
                 <TableRow
-                  // key={el.id ?el.id :el.item_id}
                   key={key}
                   className={classes.tableBodyRow}
                   hover
