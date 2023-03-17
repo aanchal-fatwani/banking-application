@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const orgthead = [
+const orgTHead = [
   { id: "accountNumber", numeric: "false", label: "Account Number" },
   { id: "name", numeric: "false", label: "Name" },
   { id: "ifsc", numeric: "true", label: "IFSC" },
@@ -75,7 +75,7 @@ export default function BeneficiariesList(props) {
       (localStorage && localStorage.getItem("currentAccNum"))
   );
   const [ck, setCk] = useState(false);
-  const [thead, setThead] = useState(orgthead);
+  const [thead, setThead] = useState(orgTHead);
   const [fields, setFields] = useState({
     accountNumber: true,
     name: true,
@@ -84,7 +84,7 @@ export default function BeneficiariesList(props) {
 
   useEffect(() => {
     setThead(
-      orgthead.filter((el) => {
+      orgTHead.filter((el) => {
         return fields[el.id];
       })
     );

@@ -21,6 +21,7 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import { AccountBalanceWallet, Search, FilterList } from "@material-ui/icons";
+import { successColor, grayColor } from "assets/jss/primary-styles.js";
 
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -35,7 +36,6 @@ import { getTransactions } from "api/transactions";
 import { getUser } from "api/users";
 import { getBeneficiaries } from "api/beneficiaries";
 
-import { successColor, grayColor } from "assets/jss/primary-styles.js";
 
 const useStyles = makeStyles((theme) => ({
   stats: {
@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const orgthead = [
+const orgTHead = [
   { id: "date", numeric: "false", label: "Date" },
   { id: "description", numeric: "false", label: "Note" },
   { id: "amount", numeric: "false", label: "Amount" },
@@ -144,7 +144,7 @@ export default function TransactionsList(props) {
       (localStorage && localStorage.getItem("currentAccNum"))
   );
   const [ck, setCk] = useState(false);
-  const [thead, setThead] = useState(orgthead);
+  const [thead, setThead] = useState(orgTHead);
   const [fields, setFields] = useState({
     date: true,
     description: true,
@@ -170,10 +170,41 @@ export default function TransactionsList(props) {
     setBalance();
   }, []);
 
+  /**
+ * Fetches the balance of the user
+ */
+  async function setBalance() {
+    let user = await getUser();
+    setTotalBal(user.balance);
+  }
+
+/**
+ * Fetches all the beneficiaries
+ */
+  async function getBeneficiaryDetails() {
+    let res = await getBeneficiaries(userAccountNum);
+    setBeneficiaries([...res]);
+  }
+
+/**
+ * Fetches all the data on page load
+ */ 
+  const getAllInitialData = () => {
+    setBalance();
+    getAllTransactions();
+    getBeneficiaryDetails();
+  };
   
+/**
+ * Updates the page if the quick pay section completes transaction
+ */
+  const updateHandlerCallback = () => {
+    getAllInitialData();
+  };
+
   useEffect(() => {
     setThead(
-      orgthead.filter((el) => {
+      orgTHead.filter((el) => {
         return fields[el.id];
       })
     );
@@ -189,6 +220,10 @@ export default function TransactionsList(props) {
   }, [fields]);
 
   useEffect(() => {
+    getAllInitialData();
+  }, []);
+
+  useEffect(() => {
     setSearchData(
       txnData
         .filter(
@@ -198,44 +233,6 @@ export default function TransactionsList(props) {
         .slice(0, 3)
     );
   }, [searchStr]);
-
-  
-  /**
-   * Fetches all the data on page load
-   */
-  const getAllInitialData = () => {
-    setBalance();
-    getAllTransactions();
-    getBeneficiaryDetails();
-  };
-
-  
-  useEffect(() => {
-    getAllInitialData();
-  }, []);
-  
-  /**
-   * Fetches all the beneficiaries
-   */
-  async function getBeneficiaryDetails() {
-    let res = await getBeneficiaries(userAccountNum);
-    setBeneficiaries([...res]);
-  }
-
-  /**
-   * Fetches the balance of the user
-   */
-  async function setBalance() {
-    let user = await getUser();
-    setTotalBal(user.balance);
-  }
-
-  /**
-   * Updates the page if the quick pay section completes transaction
-   */
-  const updateHandlerCallback = () => {
-    getAllInitialData();
-  };
 
   /**
    * Fetches and modifies the transactions data for display
